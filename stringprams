@@ -1,0 +1,28 @@
+properties([parameters([string('Design'), string('code'), string('build'), text('test')])])
+pipeline
+{
+    agent any
+    stages
+    {
+        stage("design")
+        steps
+        {
+            echo "${Design}"
+        }
+        steps
+        {
+            echo "${code}"
+            
+        }
+         steps
+        {
+            echo "${build}"
+            
+        }
+         steps
+        {
+            echo "${test}"
+            
+        }
+    }
+}
