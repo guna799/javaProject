@@ -10,7 +10,7 @@ pipeline
             {
                 echo 'this is boolean parameters'
                 echo 'this code is form git'
-                echo "${if}"
+                
             }
         }
         stage("choice")
@@ -18,7 +18,7 @@ pipeline
             steps
             {
                 ehco ' this is form choice parameters'
-                echo "${Choices}
+                echo "${Choices}"
             }
         }
     }
