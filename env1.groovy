@@ -1,20 +1,30 @@
-pipeline
-{
+pipeline {
     agent any
-    {
-        global="this is global varible"
+    environment {
+        SAMPLE_GLOBAL_ENV_VAR = "Test global ENV variables."
     }
-    stages
-    {
-        stage("demo")
-        {
-            env_stg="this is stge varible in the demo stage"
-            steps
-            {
-                echo 'this is demo stage'
-                echo "$env_stg"
-                echo "$global"
-            }        
+    stages {
+        stage("Build") {
+            environment {
+                SAMPLE_STAGE_ENV_VAR = "Test stage ENV variables."
+            }
+            steps {
+                echo "Build stage."
+                echo "$SAMPLE_GLOBAL_ENV_VAR"
+                echo "$SAMPLE_STAGE_ENV_VAR"
+            }
+        }
+        stage("Test") {
+            steps {
+                echo "Test stage."
+                echo "$env.SAMPLE_GLOBAL_ENV_VAR"
+            }
+        }
+        stage("Release") {
+            steps {
+                echo "Release stage."
+                echo "${SAMPLE_GLOBAL_ENV_VAR}"
+            }
         }
     }
 }
