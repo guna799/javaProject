@@ -8,7 +8,7 @@ pipeline
         {
             steps
             {
-            if(isFoo.toBoolean())
+            if(isFoo.toString()=='true'
                 {
                       echo " if block is working"
                       echo 'this is boolean parameters'
