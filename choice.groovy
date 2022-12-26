@@ -17,7 +17,7 @@ pipeline
         {
             steps
             {
-                ehco ' this is form choice parameters'
+                echo ' this is form choice parameters'
                 echo "${Choices}"
             }
         }
