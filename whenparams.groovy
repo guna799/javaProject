@@ -7,7 +7,7 @@ pipeline
         {
         when
             {
-                buildingTag()
+                equals(actual: currentBuild.number,expected:12)
             }
             steps
             {
