@@ -8,13 +8,12 @@ pipeline
         {
             steps
             {
-            if(isFoo.toString()=='true'
+            if(isFoo.toString()=='true')
                 {
                       echo " if block is working"
                       echo 'this is boolean parameters'
                       echo 'this code is form git'
                 }
-                
             }
         }
         stage("choice")
