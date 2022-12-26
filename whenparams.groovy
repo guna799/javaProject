@@ -12,13 +12,14 @@ pipeline
                 {
                     return params.ENVIRONMENT='PROD'
                 }
+            }
             steps
             {
                 echo"---------------------------------"
                 echo"Deployig to the production "
                 echo "--------------------------------"
             }
-            }
+        }
             
         }
     }
