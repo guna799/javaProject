@@ -1,7 +1,7 @@
 properties([parameters([booleanParam('if'), choice(choices: ['equal ', 'less', 'more'], name: 'Choices')])])
 pipeline
 {
-    agent admin
+    agent any
     stages
     {
         stage("boolean")
