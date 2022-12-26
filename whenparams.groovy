@@ -6,6 +6,12 @@ pipeline
     {
         stage("DeploytoProduction")
         {
+        when
+            {
+            expression
+                {
+                    return params.ENVIRONMENT='PROD'
+                }
             steps
             {
                 echo"---------------------------------"
