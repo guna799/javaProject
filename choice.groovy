@@ -1,4 +1,4 @@
-properties([parameters([booleanParam('if'), choice(choices: ['equal ', 'less', 'more'], name: 'Choices')])])
+properties([parameters([booleanParam(defaultValue: true, name: 'if'), choice(choices: ['equal ', 'less', 'more'], name: 'Choices')])])
 pipeline
 {
     agent any
@@ -10,6 +10,10 @@ pipeline
             {
                 echo 'this is boolean parameters'
                 echo 'this code is form git'
+                if(isFoo.toBoolean())
+                {
+                    echo " if block is working"
+                }
                 
             }
         }
