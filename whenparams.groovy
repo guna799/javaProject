@@ -8,16 +8,11 @@ pipeline
         {
         when
             {
-            expression
-                {
-                    return params.ENVIRONMENT='PROD'
-                }
+                buildingTag()
             }
             steps
             {
-                echo"---------------------------------"
-                echo"Deployig to the production "
-                echo "--------------------------------"
+                    echo "when condition in pipeline script"
             }
         }
             
