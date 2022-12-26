@@ -8,11 +8,11 @@ pipeline
         {
             steps
             {
-                echo 'this is boolean parameters'
-                echo 'this code is form git'
                 if(isFoo.toBoolean())
                 {
-                    echo " if block is working"
+                      echo " if block is working"
+                      echo 'this is boolean parameters'
+                      echo 'this code is form git'
                 }
                 
             }
