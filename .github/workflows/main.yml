@@ -1,22 +1,23 @@
-name : test-input values
+name: test-input values
+
 on:
-	workflow_dispatch:
-		inputs:
-			rollback: 
-				required: true
-				default : false
-			rollback_version:
-				required : true
-				default: 1.1.55
+  workflow_dispatch:
+    inputs:
+      rollback:
+        required: true
+        default: false
+      rollback_version:
+        required: true
+        default: 1.1.55
 
 jobs:
-	print_rollback_value:
-		runs-on: ubuntu-latest
-		steps:
-			- run: echo " This is to print the rollback varibale value here ${{github.events.inputs.rollback}}"
+  print_rollback_value:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This is to print the rollback variable value here ${{ github.event.inputs.rollback }}"
 
-	print_rollback_version:
-		needs: print_rollback_value
-		runs-on: ubuntu-latest
-		steps:
-			- run : echo "this is to print the rollback_Version value here ${{github.events.inputs.rollback_version}}
+  print_rollback_version:
+    needs: print_rollback_value
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This is to print the rollback version value here ${{ github.event.inputs.rollback_version }}"
