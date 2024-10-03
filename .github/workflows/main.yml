@@ -6,9 +6,17 @@ on:
       environment:
         required: true
         default: 'production'
+			rollback:
+				required : true
+				default : true		
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Deploying to ${{ github.event.inputs.environment }} environment"
+
+	Test:
+		runs-on : ubuntu-latest
+		steps:
+			- run : echo "Testing the rollback varibale value by giving manual values ${{github.events.inputs.rollback}}"
