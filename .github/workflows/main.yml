@@ -1,23 +1,22 @@
-name: Workflow input Example
-
+name : test-input values
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        required: true
-        default: 'production'
-      rollback:
-        required: true
-        default: true
+	workflow_dispatch:
+	inputs:
+		rollback: 
+			required: true
+			default : false
+		rollback_version:
+			required : true
+			default: 1.1.55
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Deploying to ${{ github.event.inputs.environment }} environment"
+	print_rollback_value:
+		runs-on: ubuntu-latest
+		steps:
+			- run: echo " This is to print the rollback varibale value here ${{github.events.inputs.rollback}}"
 
-  Test:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Testing the rollback variable value by giving manual values ${{ github.event.inputs.rollback }}"
+	print_rollback_version:
+		needs: print_rollback_value
+		runs-on: ubuntu-latest
+		steps:
+			- run : echo "this is to print the rollback_Version value here ${{github.events.inputs.rollback_version}}		
