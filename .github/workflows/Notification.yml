@@ -7,16 +7,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      # Get the current timestamp
-      - name: Get the timestamp
-        id: get-timestamp
-        run: echo "TIMESTAMP=$(date -u)" >> $GITHUB_ENV
-
       # Send the MS Teams notification
       - uses: dchourasia/ms-teams-notification@1.0
         if: always()
         with:
           github-token: ${{ github.token }}
           webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          message: "Build completed at ${{ env.TIMESTAMP }}"
