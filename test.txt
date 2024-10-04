@@ -1,0 +1,5 @@
+Hello Guna, Welcome to the Github actions to test the workflows
+
+This is Teams notifications form github actions
+
+and this is the alternative choice for jenkins which is open source and flexible to use no need to maintain any server to host all will be taken care by the Github actions
