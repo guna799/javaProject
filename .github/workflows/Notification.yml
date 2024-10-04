@@ -1,15 +1,15 @@
-name: MS Teams Notification
+name: Notify Teams on Push
+
 on: push
 
 jobs:
-  build:
+  notify_teams:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      # this is the new step
-      - uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
-        if: always()
-        with:
-          github-token: ${{ github.token }}
-          webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+    - name: Send notification to Microsoft Teams
+      run: |
+        curl -H 'Content-Type: application/json' -d '{
+          "title": "GitHub CI/CD Notification",
+          "text": "A new commit/pull request was made on the repository. Branch: ${{ github.ref_name }}. Committer: ${{ github.actor }}."
+        }' ${{ secrets.TEAMS_WEBHOOK_URL }}
