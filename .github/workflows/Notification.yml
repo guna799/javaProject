@@ -17,5 +17,5 @@ jobs:
           ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
           notification-summary: ServiceNow CI/CD Deployments
           notification-color: 17a2b8
-          timezone: Indian/Maldives
+          timezone: IST
           verbose-logging: true
