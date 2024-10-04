@@ -1,10 +1,46 @@
 # Send Notification to Teams Channel QA Team > General
-  - name: Send Notification to Teams Channel
-    uses: Skitionek/notify-microsoft-teams@v1.0.8
-    if: always()
-    with:
-      webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-      overwrite: "{ title: `Nightly Test Run Status`, sections: [{ activityTitle: `Run Info:`, activitySubtitle: `Started by GitHub`, facts: [{ name: `Run from branch`, value: `${{ github.ref }}` }, { name: `Environment`, value: `${{ github.event.inputs.environment }}` }, { name: `Tags`, value: `${{ github.event.inputs.tags }}` }, { name: `Recorded`, value: `true` }], markdown: true }], potentialAction: [{ \\"@type\\": `OpenUri`, name: `Repository`, targets: [{ os: `default`, uri: `<https://github.com/${{> github.repository }}` }] }, { \\"@type\\": `OpenUri`, name: `Workflow Run`, targets: [{ os: `default`, uri: `<https://github.com/${{> github.repository }}/actions/runs/${{ github.run_id }}` }] }, { \\"@type\\": `OpenUri`, name: `Cypress Dashboard`, targets: [{ os: `default`, uri: `${{ steps.run_step.outputs.dashboardUrl }}` }] }] }"
-      needs: ${{ toJSON(needs) }}
-      steps: ${{ toJSON(steps) }}
-      job: ${{ toJSON(job) }}
+- name: Send Notification to Teams Channel
+  uses: Skitionek/notify-microsoft-teams@v1.0.8
+  if: always()
+  with:
+    webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+    overwrite: |
+      {
+        "title": "Nightly Test Run Status",
+        "sections": [
+          {
+            "activityTitle": "Run Info:",
+            "activitySubtitle": "Started by GitHub",
+            "facts": [
+              { "name": "Run from branch", "value": "${{ github.ref }}" },
+              { "name": "Environment", "value": "${{ github.event.inputs.environment }}" },
+              { "name": "Tags", "value": "${{ github.event.inputs.tags }}" },
+              { "name": "Recorded", "value": "true" }
+            ],
+            "markdown": true
+          }
+        ],
+        "potentialAction": [
+          {
+            "@type": "OpenUri",
+            "name": "Repository",
+            "targets": [
+              { "os": "default", "uri": "https://github.com/${{ github.repository }}" }
+            ]
+          },
+          {
+            "@type": "OpenUri",
+            "name": "Workflow Run",
+            "targets": [
+              { "os": "default", "uri": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" }
+            ]
+          },
+          {
+            "@type": "OpenUri",
+            "name": "Cypress Dashboard",
+            "targets": [
+              { "os": "default", "uri": "${{ steps.run_step.outputs.dashboardUrl }}" }
+            ]
+          }
+        ]
+      }
