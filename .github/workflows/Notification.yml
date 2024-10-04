@@ -1,23 +1,18 @@
 name: Pipeline Name
 
 on:
-push:
-  master
-jobs:
+  push:
+    branches:
+      - master
 
-build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Demo Step
-      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$GITHUB_RUN_NUMBER
-notify:
+jobs:
+  notify:
     runs-on: ubuntu-latest
     if: always()
-    needs: build
     steps:
-    - name: Send a Notification
+      - name: Send a Notification
         id: notify
         uses: thechetantalwar/teams-notify@v2
         with:
-        teams_webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-        message: "Github Action Build Number ${{ github.run_number }} Completed for ${{ github.repository }} and the outcome is  ${{ needs.build.result }}."
+          teams_webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          message: "GitHub Action Build Number ${{ github.run_number }} completed for ${{ github.repository }} and the outcome is ${{ needs.build.result }}."
