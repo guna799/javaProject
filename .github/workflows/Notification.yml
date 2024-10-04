@@ -1,4 +1,4 @@
-name: Notify Teams on Push
+name: Notify Teams on Push with Modified Files
 
 on: push
 
@@ -7,9 +7,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Get list of modified files
+      id: modified_files
+      run: |
+        git fetch origin ${{ github.ref_name }}
+        echo "MODIFIED_FILES=$(git diff --name-only ${{ github.sha }}~1 ${{ github.sha }})" >> $GITHUB_ENV
+
+    - name: Display modified files (for debug purposes)
+      run: echo "Modified files: ${{ env.MODIFIED_FILES }}"
+
     - name: Send notification to Microsoft Teams
       run: |
         curl -H 'Content-Type: application/json' -d '{
-          "title": "GitHub CI/CD Notification",
-          "text": "A new commit/pull request was made on the repository. Branch: ${{ github.ref_name }}. Committer: ${{ github.actor }}."
+          "title": "GitHub Notification",
+          "text": "A new push was made on the repository.\n\n**Branch:** ${{ github.ref_name }}\n**Committer:** ${{ github.actor }}\n\n**Modified Files:**\n${{ env.MODIFIED_FILES }}"
         }' ${{ secrets.TEAMS_WEBHOOK_URL }}
