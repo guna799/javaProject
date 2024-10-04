@@ -1,21 +1,15 @@
-
 name: MS Teams Notification
-
-on: pull_request
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      # this is the new step using the ms-teams-notification action
-      - name: Notify dedicated teams channel
-        uses: dchourasia/ms-teams-notification@1.0
+      - uses: actions/checkout@v2
+      # this is the new step
+      - uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
+        if: always()
         with:
-          github-token: ${{ github.token }} # this will use the runner's token.
-          ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          notification-summary: ServiceNow CI/CD Deployments
-          notification-color: 17a2b8
-          timezone: IST
-          verbose-logging: true
+          github-token: ${{ github.token }}
+          webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
