@@ -1,27 +1,23 @@
-name: Notify Teams on Push with Modified Files
+name: Pipeline Name
 
-on: push
-
+on:
+push:
+  master
 jobs:
-  notify_teams:
+
+build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Get list of modified files
-      id: modified_files
-      run: |
-        git fetch origin ${{ github.ref_name }}
-        echo "MODIFIED_FILES=$(git diff --name-only ${{ github.sha }}~1 ${{ github.sha }})" >> $GITHUB_ENV
-
-    - name: Display modified files (for debug purposes)
-      run: echo "Modified files: ${{ env.MODIFIED_FILES }}"
-
-    - name: Send notification to Microsoft Teams
-      run: |
-        curl -H 'Content-Type: application/json' -d '{
-          "title": "GitHub Notification",
-          "text": "A new push was made on the repository.\n\n**Branch:** ${{ github.ref_name }}\n**Committer:** ${{ github.actor }}\n\n**Modified Files:**\n${{ env.MODIFIED_FILES }}"
-        }' ${{ secrets.TEAMS_WEBHOOK_URL }}
+    - name: Demo Step
+      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$GITHUB_RUN_NUMBER
+notify:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: build
+    steps:
+    - name: Send a Notification
+        id: notify
+        uses: thechetantalwar/teams-notify@v2
+        with:
+        teams_webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        message: "Github Action Build Number ${{ github.run_number }} Completed for ${{ github.repository }} and the outcome is  ${{ needs.build.result }}."
