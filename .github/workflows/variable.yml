@@ -1,0 +1,25 @@
+name: Testing variable value
+on: 
+  workflow_dispatch:
+    inputs:
+      triggerRollback:
+        description: "Trigger rollback to previous version"
+        required: true
+        default: false
+      rollback_version:
+        description: "Rollback version to previous version"
+        required: true
+        default: 1.1.93
+
+jobs:
+  printRollback_version:
+    runs-on : ubuntu-latest
+    steps: 
+      - name: print_rollback_Version in the output
+        run : echo "This is the current rollback version in the code $${{github.events.inputs.rollback_version}}"
+
+  printTriggerRollback:
+    runs-on : ubuntu-latest
+    steps: 
+      - name: Print rollback value in the output
+        run : echo "This is the current rollback version in the code $${{github.events.inputs.triggerRollback}}"  
