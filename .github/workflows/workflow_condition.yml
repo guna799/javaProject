@@ -1,0 +1,27 @@
+name: testing workflows condition
+on :
+  push:
+    branches:
+      - master
+      - development
+  
+  workflow_dispatch:
+    inputs:
+      rollback:
+        description: "To run the workflow while this is true"
+        required : false
+        default:  false
+      version:
+        description: " Enter version to which version to rollback "
+        required : false
+        default : 1.1.12
+
+jobs:
+  print_rollback:
+    runs-on : ubuntu-latest
+    run : echo "The current rollback value is ${{github.event.inputs.rollback}}"        
+
+  printrollbackversion:
+    needs: print_rollback
+    runs-on : ubuntu-latest
+    run: echo " The current rollback version is ${{ github.event.inputs.version}}"  
