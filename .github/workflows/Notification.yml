@@ -1,4 +1,4 @@
-name: Github-Teams-Notification:
+name: Github-Teams-Notification
 on : push
 runs-on: ubuntu-latest
 steps:
