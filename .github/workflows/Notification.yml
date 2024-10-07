@@ -16,4 +16,4 @@ jobs:
       -  uses: neonidian/teams-notify-build-status@v3
          with:
           webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          message: "${{ github.job }} job in  workflow ${{ github.workflow }} of ${{ github.repository }} has ${{steps.check.outputs.status}} "
+          message: "The Deployment workflow for ${{ github.workflow }} of ${{ github.repository }} has ${{steps.check.outputs.status}} "
