@@ -12,13 +12,8 @@ jobs:
         if: steps.check.outputs.status == 'cancelled'
       - run: echo "Workflow is successful" 
         if: steps.check.outputs.status == 'success'
-      - run : echo " ${{steps.check.outputs.status}}"  
-
-  Notfiy:
-    needs: GetWorkflowstatus
-    runs-on: ubuntu-latest
-    steps:
-    - uses: neonidian/teams-notify-build-status@v3
-      with:
-        webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
-        message: "The Deployment workflow is ${{steps.check.outputs.status}} " 
+      - run : echo " ${{steps.check.outputs.status}}" 
+      - uses: neonidian/teams-notify-build-status@v3
+        with:
+          webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          message: "The Deployment workflow is ${{steps.check.outputs.status}} " 
