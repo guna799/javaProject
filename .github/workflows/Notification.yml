@@ -6,11 +6,11 @@ jobs:
     steps:
       - uses: martialonline/workflow-status@v3
         id: check
-      - run: echo "Workflow Failed"
+      - run: echo "Workflow = Failed" >> $GITHUB_OUTPUT
         if : steps.check.outputs.status =='failure'
-      - run: echo "Workflow was cancelled"
+      - run: echo "Workflow = cancelled" >> $GITHUB_OUTPUT
         if: steps.check.outputs.status == 'cancelled'
-      - run: echo "Workflow was successful" >> $GITHUB_OUTPUT
+      - run: echo "Workflow = successful"  >> $GITHUB_OUTPUT
         if: steps.check.outputs.status == 'success'
 
   Notfiy:
@@ -20,4 +20,4 @@ jobs:
     - uses: neonidian/teams-notify-build-status@v3
       with:
         webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
-        message: "The Deployment workflow is ${{steps.check.outputs.GITHUB_OUTPUT}} " 
+        message: "The Deployment workflow is ${{steps.check.outputs.Workflow}} " 
