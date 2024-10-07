@@ -1,5 +1,5 @@
 Github-Teams-Notification:
-  needs: [deployprod,rollbackApp]
+  on : push
   if: always()
   runs-on: ubuntu-latest
   steps:
