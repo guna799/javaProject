@@ -19,9 +19,12 @@ on :
 jobs:
   print_rollback:
     runs-on : ubuntu-latest
-    run : echo "The current rollback value is ${{github.event.inputs.rollback}}"        
+    steps:
+      - run : echo "The current rollback value is ${{github.event.inputs.rollback}}"        
 
   printrollbackversion:
     needs: print_rollback
     runs-on : ubuntu-latest
-    run: echo " The current rollback version is ${{ github.event.inputs.version}}"  
+    steps:
+      - run : echo "The current rollback version is ${{github.event.inputs.version}}" 
+
