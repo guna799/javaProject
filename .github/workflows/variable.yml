@@ -16,11 +16,11 @@ jobs:
     runs-on : ubuntu-latest
     steps: 
       - name: print_rollback_Version in the output
-        run : echo "This is the current rollback version in the code $${{inputs.rollback_version}}"
+        run : echo "This is the current rollback version in the code ${{inputs.rollback_version}}"
 
   printTriggerRollback:
     needs: printRollback_version
     runs-on : ubuntu-latest
     steps: 
       - name: Print rollback value in the output
-        run : echo "This is the current rollback version in the code $${{inputs.triggerRollback}}"  
+        run : echo "This is the current rollback version in the code ${{inputs.triggerRollback}}"  
