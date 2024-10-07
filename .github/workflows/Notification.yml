@@ -1,7 +1,7 @@
 name: workflow status
 on : push
 jobs:
-  notification:
+  GetWorkflowstatus:
     runs-on : ubuntu-latest
     steps:
       - uses: martialonline/workflow-status@v3
@@ -11,4 +11,13 @@ jobs:
       - run: echo "Workflow was cancelled"
         if: steps.check.outputs.status == 'cancelled'
       - run: echo "Workflow was successful"
-        if: steps.check.outputs.status == 'success'  
+        if: steps.check.outputs.status == 'success'
+
+  Notfiy:
+    needs: GetWorkflowstatus
+    runs-on: ubuntu-latest
+    steps:
+    - uses: neonidian/teams-notify-build-status@v3
+    with:
+      webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
+      message: "The workflow is ${{steps.check.outputs.status}} " 
