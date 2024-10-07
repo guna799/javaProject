@@ -11,8 +11,8 @@ jobs:
       - run: echo "Workflow was cancelled" 
         if: steps.check.outputs.status == 'cancelled'
       - run: echo "Workflow is successful" 
-        if: steps.check.outputs.status == 'success'
         echo: " ${{steps.check.outputs.status}}"
+        if: steps.check.outputs.status == 'success'
 
   Notfiy:
     needs: GetWorkflowstatus
