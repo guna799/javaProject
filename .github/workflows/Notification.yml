@@ -1,18 +1,17 @@
-name: MS Teams Deploy Card
-
-on: [push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      # this is the new step
-      - uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
-        if: always()
-        with:
-          github-token: ${{ github.token }}
-          webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          timezone: IST
-          show-on-start: true
+name: Send MS Teams notification
+id: notification
+if: always()
+uses: sergioaten/msteams-notifications@v0.1-beta
+with:
+  webhook: ${{ secrets.TEAMS_WEBHOOK_URL }}
+  steps: ${{ toJson(steps) }}
+  factsTitle: "Workflow Details"
+  facts: |
+    - Author: John Doe
+    - Version: 1.0.0
+  buttons: |
+    - type: OpenUri
+      name: View in GitHub
+      targets:
+        - os: default
+          uri: https://github.com/sergioaten/msteams-notifications
