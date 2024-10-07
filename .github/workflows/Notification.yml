@@ -18,6 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: neonidian/teams-notify-build-status@v3
-    with:
-      webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
-      message: "The workflow is ${{steps.check.outputs.status}} " 
+      with:
+        webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        message: "The workflow is ${{steps.check.outputs.status}} " 
