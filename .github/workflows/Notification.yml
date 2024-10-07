@@ -10,7 +10,7 @@ jobs:
         if : steps.check.outputs.status =='failure'
       - run: echo "Workflow was cancelled"
         if: steps.check.outputs.status == 'cancelled'
-      - run: echo "Workflow was successful"
+      - run: echo "Workflow was successful" >> $GITHUB_OUTPUT
         if: steps.check.outputs.status == 'success'
 
   Notfiy:
@@ -20,4 +20,4 @@ jobs:
     - uses: neonidian/teams-notify-build-status@v3
       with:
         webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
-        message: "The workflow is ${{steps.check.outputs.status}} " 
+        message: "The Deployment workflow is ${{steps.check.outputs.GITHUB_OUTPUT}} " 
