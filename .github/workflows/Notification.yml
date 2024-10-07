@@ -1,4 +1,3 @@
-
 name: MS Teams Deploy Card
 
 on: [push]
@@ -15,3 +14,5 @@ jobs:
         with:
           github-token: ${{ github.token }}
           webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          timezone: IST
+          show-on-start: true
