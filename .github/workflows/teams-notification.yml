@@ -7,7 +7,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      # Send the MS Teams notification
+     
       - uses: dchourasia/ms-teams-notification@1.0
         if: always()
         with:
