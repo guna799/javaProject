@@ -1,14 +1,16 @@
-on: push
+name: MS Teams Deploy Card
+
+on: [push]
+
 jobs:
-  notify:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
+      # this is the new step
       - uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
         if: always()
         with:
           github-token: ${{ github.token }}
-          webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          parent-job: ${{ github.workflow }}
-  build:
-    name: Build
+          webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
