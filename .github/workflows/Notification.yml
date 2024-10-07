@@ -16,6 +16,4 @@ jobs:
       - uses: neonidian/teams-notify-build-status@v3
         with:
           webhookUrl: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          message:  
-           - " CICD deployoment for ServiceNow"
-           - "${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{steps.check.outputs.status}} "
+          message: "${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{steps.check.outputs.status}} "
