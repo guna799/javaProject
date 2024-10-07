@@ -1,17 +1,14 @@
-name: Send MS Teams notification
-id: notification
-if: always()
-uses: sergioaten/msteams-notifications@v0.1-beta
-with:
-  webhook: ${{ secrets.TEAMS_WEBHOOK_URL }}
-  steps: ${{ toJson(steps) }}
-  factsTitle: "Workflow Details"
-  facts: |
-    - Author: John Doe
-    - Version: 1.0.0
-  buttons: |
-    - type: OpenUri
-      name: View in GitHub
-      targets:
-        - os: default
-          uri: https://github.com/sergioaten/msteams-notifications
+name: workflow status
+on : push
+jobs:
+  notification:
+    runs-on : ubuntu-latest
+    steps:
+      - uses: martialonline/workflow-status@v3
+        id: check
+      - run: echo "Workflow Failed"
+        if : steps.check.outputs.status =='failure'
+      - run: echo "Workflow was cancelled"
+        if: steps.check.outputs.status == 'cancelled'
+      - run: echo "Workflow was successful"
+        if: steps.check.outputs.status == 'success'  
